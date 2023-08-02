@@ -1,0 +1,30 @@
+--Create Bike Store Database
+
+CREATE TABLE bike_store (id INTEGER PRIMARY KEY, item_code INTEGER, item_name TEXT, price_tag INTEGER, manufacturer_name TEXT, warranty_period_years INTEGER, stock_quantity INTEGER);
+
+INSERT INTO bike_store VALUES("1","CYC001","Titan Raptor 27.5", "$2750", "Titan", "1", "300");
+INSERT INTO bike_store VALUES("2", "CYC002", "Giant Talon 3", "$2900", "Giant", "2", "400");
+INSERT INTO bike_store VALUES("3", "CYC003", "Cannondale Synapse Carbon Disc", "$2700", "Cannondale", "3", "500");
+INSERT INTO bike_store VALUES("4", "CYC004", "Trek Marlin 5", "$700", "Trek", "1", "600");
+INSERT INTO bike_store VALUES("5", "CYC005", "Specialized Sirrus X 3.0", "$1200", "Specialized", "2", "100");
+INSERT INTO bike_store VALUES("6", "CYC006", "Scott Scale 980", "$1230", "Scott", "3", "200");
+INSERT INTO bike_store VALUES("7", "CYC007", "Raleigh Detour 2 Step Thru", "$600", "Raleigh", "2", "150");
+INSERT INTO bike_store VALUES("8", "CYC008", "Schwinn Tango Tandem", "$600", "Schwinn", "3", "250");
+INSERT INTO bike_store VALUES("9", "CYC009", "Bianchi Aria E-Road", "$2200", "Bianchi", "4", "360");
+INSERT INTO bike_store VALUES("10", "CYC0010", "Santa Cruz Bronson S", "$6000", "Santa", "1", "150");
+INSERT INTO bike_store VALUES("11", "CYC0011", "Merida Big Nine 300", "$2000", "Merida", "5", "130");
+INSERT INTO bike_store VALUES("12", "CY0012", "Cube Nature Pro", "$1400", "Cube", "7", "350");
+INSERT INTO bike_store VALUES("13", "CY0013", "Kona Dew Plus", "$800", "Kona", "4", "200");
+INSERT INTO bike_store VALUES("14", "CY0014", "Canyon Grail CF SL 8.0", "$3000", "Canyon", "8", "560");
+INSERT INTO bike_store VALUES("15", "CY0015", "Fuji Absolute 1.9 ST", "$600", "Fuji", "6", "240");
+
+--display the database ordered by price
+SELECT * FROM bike_store
+ORDER BY price_tag desc;
+
+
+--display item, price, and quantity ordered by price
+SELECT item_name, price_tag, stock_quantity FROM bike_store ORDER BY price_tag;
+
+--display total sum of items in the bike_store
+SELECT SUM(stock_quantity) FROM bike_store;
