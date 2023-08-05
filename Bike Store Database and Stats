@@ -1,4 +1,4 @@
---Create Bike Store Database
+--Create Bike Store Databas
 
 CREATE TABLE bike_store (id INTEGER PRIMARY KEY, item_code INTEGER, item_name TEXT, price_tag INTEGER, manufacturer_name TEXT, warranty_period_years INTEGER, stock_quantity INTEGER);
 
