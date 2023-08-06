@@ -1,0 +1,107 @@
+--Create actors, movies and hobbies database
+
+CREATE TABLE actors (id INTEGER PRIMARY KEY AUTOINCREMENT, fullname TEXT, gender TEXT, age INTEGER);
+
+INSERT INTO actors (fullname, gender, age) VALUES ("Brad Pitt", "Male", "59");
+INSERT INTO actors (fullname, gender, age) VALUES ("Hugh Jackman", "Male", "54");
+INSERT INTO actors (fullname, gender, age) VALUES ("Halle Berry", "Female", "56");
+INSERT INTO actors (fullname, gender, age) VALUES ("Reese Witherspoon", "Female", "47");
+INSERT INTO actors (fullname, gender, age) VALUES ("Angelina Jolie", "Female", "48");
+INSERT INTO actors (fullname, gender, age) VALUES ("Charlize Theron", "Female", "47");
+INSERT INTO actors (fullname, gender, age) VALUES ("Denzel Washington", "Male", "68");
+INSERT INTO actors (fullname, gender, age) VALUES ("Leonardo DiCaprio", "Male", "48");
+INSERT INTO actors (fullname, gender, age) VALUES ("Zendaya Coleman", "Female", "26");
+INSERT INTO actors (fullname, gender, age) VALUES ("Zac Efron", "Male", "35");
+INSERT INTO actors (fullname, gender, age) VALUES ("Mila Kunis", "Female", "39");
+INSERT INTO actors (fullname, gender, age) VALUES ("Samuel L. Jackson", "Male", "74");
+INSERT INTO actors (fullname, gender, age) VALUES ("Chloë Moretz", "Female", "26");
+INSERT INTO actors (fullname, gender, age) VALUES ("Harrison Ford", "Male", "81");
+INSERT INTO actors (fullname, gender, age) VALUES ("Morgan Freeman", "Male", "86");
+
+
+CREATE TABLE movies (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, actor_id INTEGER, year INTEGER, rating TEXT, genre TEXT);
+
+
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("Pulp Fiction", 1, "1994", "R", "Crime");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("Jeepers Creepers", 2, "2001", "R", "Horror");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("American Psycho", 3, "2000", "R", "Thriller");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("Life", 4, "1999", "R", "Comedy");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("Jurassic Park", 5, "1993", "PG-13", "Adventure");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("The Notebook", 6, "2004", "PG-13", "Romance");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("The Green Mile", 7, "1999", "R", "Drama");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("The Bourne Identity", 8, "2002", "PG-13", "Action");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("When the Bough Breaks", 9, "2016", "PG-13", "Thriller");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("Ace Ventura: Pet Detective", 10, "1994", "PG-13", "Comedy");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("Forrest Gump", 10, "1994", "PG-13", "Drama");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("Scream", 11, "1996", "R", "Horror");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("The Dark Knight", 12, "2008", "PG-13", "Action");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("Dumb and Dumber", 13, "1994", "PG-13", "Comedy");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("The Wedding Planner", 14, "2001", "PG-13", "Romance");
+INSERT INTO movies (title, actor_id, year, rating, genre) VALUES ("Taxi Driver", 15, "1976", "R", "Drama");
+
+CREATE TABLE hobbies (id INTEGER PRIMARY KEY AUTOINCREMENT, actor_id INTEGER, hobby TEXT);
+
+INSERT INTO hobbies (actor_id, hobby) VALUES (1, "Cooking");
+INSERT INTO hobbies (actor_id, hobby) VALUES (2, "Painting");
+INSERT INTO hobbies (actor_id, hobby) VALUES (3, "Video Gaming");
+INSERT INTO hobbies (actor_id, hobby) VALUES (4, "Cooking");
+INSERT INTO hobbies (actor_id, hobby) VALUES (5, "Painting");
+INSERT INTO hobbies (actor_id, hobby) VALUES (6, " Video Gaming");
+INSERT INTO hobbies (actor_id, hobby) VALUES (7, "Cooking");
+INSERT INTO hobbies (actor_id, hobby) VALUES (8, "Painting");
+INSERT INTO hobbies (actor_id, hobby) VALUES (9, "Video Gaming");
+INSERT INTO hobbies (actor_id, hobby) VALUES (10, "Dancing");
+
+SELECT * FROM actors;
+SELECT * FROM movies;
+SELECT * FROM hobbies;
+
+
+-- Display the number of male actors above the age of 40
+SELECT COUNT(*) AS Male_Above40 FROM actors
+    WHERE age > 40 AND gender = "Male";
+
+--Display name of all the female actors
+SELECT fullname AS Female_Actors FROM actors
+    WHERE gender = "Female";
+
+--Display actors and their respective movies using JOIN
+SELECT actors.fullname AS Star_Actor, movies.title AS Title, movies.year AS Year FROM actors
+    JOIN movies
+    ON movies.actor_id = actors.id;
+
+--Display list of movie ratings and their respective count, grouping by rating
+SELECT rating AS List_of_Ratings, COUNT(rating) AS Count FROM movies
+    GROUP BY rating;
+
+--Display list of actors and their respective hobbies, grouped by hobbies
+SELECT hobbies.hobby AS Hobby, actors.fullname AS Actor FROM hobbies
+    JOIN actors
+    ON hobbies.actor_id = actors.id
+    ORDER BY hobby;
+
+--Display list of hobbies and number of actors who participate in that hobby
+SELECT hobbies.hobby AS Hobby, COUNT(actors.fullname) AS Number_of_Actors FROM hobbies
+    JOIN actors
+    ON hobbies.actor_id = actors.id
+    GROUP BY hobby;
+
+--Display list of hobbies and number of female actors who participate in that hobby
+SELECT hobbies.hobby AS Hobby, COUNT(actors.fullname) AS Number_of_Female_Actors FROM hobbies
+    JOIN actors
+    ON hobbies.actor_id = actors.id
+    WHERE actors.gender = "Female"
+    GROUP BY hobby;
+
+--Display list of hobbies and number of male actors who participate in that hobby
+SELECT hobbies.hobby AS Hobby, COUNT(actors.fullname) AS Number_of_Male_Actors FROM hobbies
+    JOIN actors
+    ON hobbies.actor_id = actors.id
+    WHERE actors.gender = "Male"
+    GROUP BY hobby;
+
+--Display list of actors and the movies they've been in ordered by the movie rating
+SELECT actors.fullname AS Actor, movies.rating AS Movie_Rating FROM actors
+    JOIN movies
+    ON movies.actor_id = actors.id
+    ORDER BY movies.rating;
