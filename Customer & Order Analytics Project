@@ -112,4 +112,4 @@ GROUP BY product
 ORDER BY SUM(quantity*price) desc
 LIMIT 1;
 
---In January, the Macbook Pro Laptop brought in the most revenue at $399500.00.
+--In January, the Macbook Pro Laptop brought in the most revenue at $399,500.
