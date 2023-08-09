@@ -1,0 +1,68 @@
+-- For this project, I first downloaded Spotify data from Kaggle.
+-- Then, I created a table and inserted the Spotify data into it.
+-- Finally, I performed analytics on the data using SQL.
+
+-- Creating the table:
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL
+)
+
+-- Then I inserted the Spotify Data .csv into the table.
+-- Next, I explored the data using the following SQL:
+
+--Selecting all to review data, columns
+--SELECT * FROM BIT_DB.Spotifydata
+LIMIT 5
+
+--Selecting the top 2 songs and artist with highest danceability
+--SELECT artist_name, track_name, danceability
+FROM BIT_DB.Spotifydata
+ORDER BY danceability DESC
+LIMIT 2
+
+--Selecting the top 10 artists with highest popularity
+--SELECT artist_name, popularity
+FROM BIT_DB.Spotifydata
+ORDER BY popularity DESC
+LIMIT 10
+
+--Aggregating the average duration of every song
+--SELECT AVG(duration_ms) FROM BIT_DB.Spotifydata
+
+--Selecting all songs with a score of 90 or more in popularity and with a duration longer than 150000
+--SELECT artist_name, track_name, popularity, duration_ms
+FROM BIT_DB.Spotifydata
+WHERE popularity >= 90
+AND duration_ms > 150000
+ORDER BY duration_ms DESC
+
+--Selecting the average loudness from the top 10 longest songs
+--SELECT AVG(loudness) FROM BIT_DB.Spotifydata
+WHERE duration_ms = (SELECT duration_ms FROM BIT_DB.Spotifydata
+ORDER BY duration_ms DESC
+LIMIT 5)
+
+--Selecting the average danceability from the top 10 most popular songs
+--WITH tempTable AS (
+SELECT danceability, popularity
+FROM Spotifydata
+ORDER BY popularity DESC
+LIMIT 10)
+SELECT AVG(danceability) FROM tempTable
